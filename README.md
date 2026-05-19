@@ -2,7 +2,6 @@
 
 AI-powered YouTube summarizer and transcript-based chat assistant built using Streamlit and Ollama.
 
-=======
 ---
 
 ## Features
@@ -14,7 +13,6 @@ AI-powered YouTube summarizer and transcript-based chat assistant built using St
 - CPU-optimized processing
 - History tracking for summarized videos
 
-=======
 ---
 ## Tech Stack
 
@@ -24,7 +22,6 @@ AI-powered YouTube summarizer and transcript-based chat assistant built using St
 - Phi-3 Mini
 - YouTube Transcript API
 
-=======
 ---
 ## Installation
 
@@ -98,8 +95,6 @@ SmartTube-AI/
 
 ## License
 
-This project is licensed under the MIT License.
-=======
 ---
 
 ## License
