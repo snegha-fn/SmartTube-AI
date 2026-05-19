@@ -1,0 +1,5 @@
+streamlit
+ollama
+youtube-transcript-api
+yt-dlp
+faster-whisper
