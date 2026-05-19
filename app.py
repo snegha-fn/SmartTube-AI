@@ -4,7 +4,7 @@ import time
 import re
 from youtube_transcript_api import YouTubeTranscriptApi
 
-# ====================== PAGE CONFIG ======================
+#PAGE CONFIG
 st.set_page_config(
     page_title="SmartTube AI",
     page_icon="🎬",
@@ -12,13 +12,13 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# ====================== SESSION STATE ======================
+#SESSION STATE 
 for key in ["history", "transcript", "transcript_list", "summary", 
             "messages", "summary_time", "video_id", "word_count", "current_url"]:
     if key not in st.session_state:
         st.session_state[key] = [] if key in ["history", "messages", "transcript_list"] else ""
 
-# ====================== HELPERS ======================
+#HELPERS
 def extract_video_id(url: str) -> str:
     patterns = [
         r"v=([A-Za-z0-9_-]{11})",
@@ -60,7 +60,7 @@ def create_context(transcript_list, max_segments=110):
     else:
         return "\n".join([f"[{format_time(item.start)}] {item.text}" for item in segs])
 
-# ====================== PROMPTS ======================
+#PROMPTS
 SUMMARY_PROMPT = """You are an expert YouTube content analyst. Create a clean, compelling summary.
 
 Transcript:
@@ -70,19 +70,19 @@ Return **exactly** this format (no extra text):
 
 # [Sharp, attractive title]
 
-## TL;DR
+## Summary
 [2-3 crisp, powerful sentences]
 
-## 🔑 Key Insights
+## Key Insights
 - [Clear insight with brief explanation]
 - [Clear insight with brief explanation]
 - [Clear insight with brief explanation]
 
-## 📌 Standout Moments
+## Standout Moments
 - [Specific example or fact from video]
 - [Specific example or fact from video]
 
-## 🎯 Best For
+## Best For
 [One sentence: who should watch this video]"""
 
 CHAT_PROMPT = """You are an expert assistant who has watched this video.
@@ -95,8 +95,8 @@ Question: {question}
 
 Answer naturally and concisely. Use [mm:ss] for timestamps when helpful."""
 
-# ====================== UI ======================
-tab1, tab2, tab3 = st.tabs(["🎬 New Video", "📜 History", "⚙️ Settings"])
+#UI
+tab1, tab2, tab3 = st.tabs(["New Video", "History", "⚙️ Settings"])
 
 with tab1:
     st.markdown("""
@@ -117,9 +117,9 @@ with tab1:
             label_visibility="collapsed"
         )
     with col2:
-        summarize_btn = st.button("⚡ Summarize", type="primary", use_container_width=True)
+        summarize_btn = st.button("Summarize", type="primary", use_container_width=True)
 
-    # ====================== SUMMARIZE LOGIC ======================
+    #SUMMARIZE LOGIC
     if (summarize_btn or (url and url != st.session_state.current_url and url.strip())) and url.strip():
         st.session_state.current_url = url
         t0 = time.time()
@@ -172,7 +172,7 @@ with tab1:
             st.session_state.word_count = word_count
             st.session_state.messages = []
 
-            progress.progress(100, text="✅ Done!")
+            progress.progress(100, text="Done!")
             time.sleep(0.4)
             progress.empty()
 
@@ -180,16 +180,16 @@ with tab1:
             progress.empty()
             st.error(f"**Error:** {str(e)}")
 
-    # ====================== DISPLAY SUMMARY & CHAT ======================
+    #DISPLAY SUMMARY & CHAT
     if st.session_state.summary:
         duration = st.session_state.transcript_list[-1].start if hasattr(st.session_state.transcript_list[-1], 'start') else st.session_state.transcript_list[-1]['start']
 
         st.markdown(f"**Duration:** {format_time(duration)} | **Words:** {st.session_state.word_count:,} | **Processed in:** {st.session_state.summary_time}s")
 
-        st.markdown("### 📝 Summary")
+        st.markdown("### Summary")
         st.markdown(st.session_state.summary)
 
-        st.markdown("### 💬 Chat with the Video")
+        st.markdown("### Chat with the Video")
         for msg in st.session_state.messages:
             with st.chat_message(msg["role"]):
                 st.markdown(msg["content"])
@@ -214,9 +214,9 @@ with tab1:
                 st.caption(f"⚡ {elapsed}s")
             st.session_state.messages.append({"role": "assistant", "content": answer})
 
-# ====================== HISTORY TAB ======================
+#HISTORY TAB
 with tab2:
-    st.subheader("📜 History")
+    st.subheader("History")
     if not st.session_state.history:
         st.info("No videos summarized yet. Start in the **New Video** tab.")
     else:
@@ -231,13 +231,13 @@ with tab2:
                     st.session_state.messages = []
                     st.switch_tab(tab1)
 
-# ====================== SETTINGS TAB ======================
+#SETTINGS TAB 
 with tab3:
-    st.subheader("⚙️ Settings")
-    if st.button("🗑️ Clear All History"):
+    st.subheader("Settings")
+    if st.button("Clear All History"):
         st.session_state.history = []
         st.success("History cleared!")
         time.sleep(1)
         st.rerun()
 
-st.caption("SmartTube AI • Built with Streamlit + Ollama (phi3:mini) • Optimized for CPU")
+st.caption("SmartTube AI • Built with Streamlit + Ollama (phi3:mini) • By Snegha")
