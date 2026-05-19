@@ -2,6 +2,9 @@
 
 AI-powered YouTube summarizer and transcript-based chat assistant built using Streamlit and Ollama.
 
+=======
+---
+
 ## Features
 
 - Generates concise summaries from YouTube transcripts
@@ -11,6 +14,8 @@ AI-powered YouTube summarizer and transcript-based chat assistant built using St
 - CPU-optimized processing
 - History tracking for summarized videos
 
+=======
+---
 ## Tech Stack
 
 - Python
@@ -19,10 +24,11 @@ AI-powered YouTube summarizer and transcript-based chat assistant built using St
 - Phi-3 Mini
 - YouTube Transcript API
 
+=======
+---
 ## Installation
 
 ### Clone the repository
-
 
 git clone https://github.com/YOUR_USERNAME/SmartTube-AI.git
 cd SmartTube-AI
@@ -41,6 +47,35 @@ streamlit run app.py
 
 ## Project Structure
 
+=======
+```bash
+git clone https://github.com/YOUR_USERNAME/SmartTube-AI.git
+cd SmartTube-AI
+```
+
+### Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Install Ollama model
+
+```bash
+ollama pull phi3:mini
+```
+
+### Run the application
+
+```bash
+streamlit run app.py
+```
+
+---
+
+## Project Structure
+
+```plaintext
 SmartTube-AI/
 │
 ├── app.py
@@ -49,7 +84,10 @@ SmartTube-AI/
 ├── .gitignore
 ├── LICENSE
 └── assets/
+=======
+```
 
+---
 ## Future Improvements
 
 - Multi-language support
@@ -57,6 +95,12 @@ SmartTube-AI/
 - Support for multiple LLMs
 - RAG-based retrieval
 - Cloud deployment
+
+## License
+
+This project is licensed under the MIT License.
+=======
+---
 
 ## License
 
